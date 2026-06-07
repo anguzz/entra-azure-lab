@@ -96,6 +96,35 @@ That DMARC record tells receiving mail servers check whether mail claiming to be
 
 After I set DMARC up it went right to the inbox not junk/spam.
 
+
+## DMARC Policy Update
+
+Changed DMARC from monitor-only mode:
+
+```shell
+v=DMARC1; p=none;
+```
+
+to an enforced quarantine policy:
+
+```shell
+v=DMARC1; p=quarantine; pct=100
+```
+
+
+The previous `p=none` policy only monitored DMARC results and did not instruct receiving mail servers to take action when messages failed DMARC. This meant spoofed or unauthenticated email claiming to be from `monkey.place` could still be accepted normally by recipient mail systems.
+
+The new `p=quarantine` policy tells receiving mail servers to treat messages that fail DMARC as suspicious and tend to place them in spam/junk instead of the inbox.
+
+`pct=100` means the quarantine policy applies to 100% of messages that fail DMARC.
+
+
+This change improves domain spoofing protection while avoiding the stricter `p=reject` policy for now. It provides stronger enforcement than `p=none` while still allowing failed messages to be quarantined instead of fully rejected.
+
+
+
+
 # Reference
 
 https://learn.microsoft.com/en-us/defender-office-365/email-authentication-dkim-configure
+
