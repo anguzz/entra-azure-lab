@@ -22,9 +22,11 @@ Create a **non-gallery application**.
 
 For this lab, I named the app:
 
+
 ```text
 SAMLSP.com - SAML SSO Test App
 ```
+<img width="1636" height="500" alt="01-IDP-create-app" src="https://github.com/user-attachments/assets/54a45190-e3d5-43ac-90da-9fad0fab0784" />
 
 This name makes it clear in the tenant that the app is for SAMLSP.com and is only being used for SAML SSO testing.
 
@@ -38,6 +40,8 @@ Enterprise applications
 > Single sign-on
 > SAML
 ```
+
+
 
 Now configure SSO using the Service Provider values from SAMLSP.com.
 
@@ -69,27 +73,8 @@ Sign on URL (Optional): https://samlsp.com/
 Logout URL (Optional): https://samlsp.com/?sls
 ```
 
-Important distinction:
 
-```text
-Identifier / Entity ID
-= the application identity / audience value
-
-Reply URL / ACS URL
-= where Entra sends the SAML response after login
-```
-
-So the Identifier should be:
-
-```text
-https://samlsp.com
-```
-
-Not:
-
-```text
-https://samlsp.com/?acs
-```
+<img width="1645" height="893" alt="02-IDP-saml-config" src="https://github.com/user-attachments/assets/8db124d2-aaa2-4213-b390-0c3fc09380c8" />
 
 ## 4. Download Entra Federation Metadata XML
 
@@ -104,6 +89,7 @@ Download:
 ```text
 Federation Metadata XML
 ```
+<img width="1252" height="571" alt="03-IDP-download-fed-xml" src="https://github.com/user-attachments/assets/370346ce-2c08-4e57-883b-6f22c5609b15" />
 
 This metadata file includes Entra’s SAML IdP information, including:
 
@@ -121,24 +107,21 @@ On SAMLSP.com:
 ```text
 Upload Metadata
 ```
+<img width="878" height="831" alt="04-sp-upload-xml" src="https://github.com/user-attachments/assets/b59e680d-0326-4e20-a36a-904207de8449" />
 
-Leave the **Subject NameID** field empty.
+<img width="1247" height="823" alt="05-sp-upload-xml2" src="https://github.com/user-attachments/assets/f4d035a2-5343-402e-87d0-ccff8f03092f" />
+
+Now scroll down and Leave the **Subject NameID** field empty.
+
+<img width="1207" height="709" alt="image" src="https://github.com/user-attachments/assets/88dd55c5-8759-4d4b-8b22-af3be0c2fe80" />
+
 
 Then click **Login**.
 
 If everything is configured correctly, login should succeed and SAMLSP.com will show the user attributes being sent from the tenant.
 
-Example attributes may include:
+<img width="1153" height="877" alt="06-SP-logged-in" src="https://github.com/user-attachments/assets/6008918e-28c4-4947-a5d3-76637a51a84e" />
 
-```text
-displayname
-identityprovider
-objectidentifier
-tenantid
-emailaddress
-name
-authnmethodsreferences
-```
 
 ## 5. SAML Certificate Rotation
 
@@ -167,10 +150,15 @@ Enterprise applications
 > SAML Certificates
 > Edit
 ```
+<img width="1166" height="806" alt="08-IDP-Edit-saml-cert" src="https://github.com/user-attachments/assets/ba20de68-23a2-4298-9d92-667221009084" />
+
 
 ## 6. Review Signing Options
 
-Under the SAML signing certificate settings, Entra gives a few signing options:
+Under the SAML signing certificate settings dropdown, Entra gives a few signing options:
+
+<img width="1621" height="742" alt="09-new-saml-cert" src="https://github.com/user-attachments/assets/a3aabc04-176e-42c4-9500-9bb711c95ae8" />
+
 
 ```text
 Sign SAML response
@@ -252,17 +240,9 @@ Activate the new certificate so it becomes the active token signing certificate.
 
 ## 9. Download the Updated Certificate or Metadata
 
-After activating the new certificate, refresh the Entra page before downloading anything.
+<img width="843" height="465" alt="10-download-options" src="https://github.com/user-attachments/assets/365e886f-8550-4a52-b8fa-f1ac9c3d57d4" />
 
-This matters because the Entra blade can sometimes show stale certificate state during rotation.
-
-After refreshing, confirm the correct certificate is marked:
-
-```text
-Active
-```
-
-Then download one of the following:
+Activate and download the new cert 
 
 ```text
 Base64 certificate
@@ -296,21 +276,6 @@ This usually means:
 ```text
 Entra is signing with one certificate
 The SP is validating with a different certificate
-```
-
-## 11. Rotation Gotcha
-
-During testing, I saw an issue where the old PEM/certificate still appeared to be referenced until I refreshed the Entra page and confirmed the correct active certificate was being downloaded.
-
-Good checklist:
-
-```text
-1. Activate the new SAML signing certificate.
-2. Refresh the Entra SAML certificate page.
-3. Confirm the new certificate is marked Active.
-4. Download the certificate or Federation Metadata XML after refreshing.
-5. Upload the updated metadata/cert to the SP.
-6. Test SAML login again.
 ```
 
 ## 12. Cleanup
