@@ -1,4 +1,3 @@
-````markdown
 # Entra-Azure
 
 Just some stuff I want to do or build out for my Entra, Azure, and M365 lab.
@@ -14,8 +13,6 @@ Just some stuff I want to do or build out for my Entra, Azure, and M365 lab.
   - Main license being considered: **Enterprise Mobility + Security E5**
   - Current admin URL:
 
-```
-````
 
 * Reason for choosing EMS E5:
 
@@ -43,6 +40,19 @@ Just some stuff I want to do or build out for my Entra, Azure, and M365 lab.
 
   * Check whether this is actually needed for the lab.
   * Only add it later if Intune storage becomes a limitation.
+
 ### Azure
 
 * [ ] Placeholder
+
+### SaaS apps
+[x] Sublime inital setup
+
+
+# Done
+Stuff that's mostly done, subject to change/maintenace though.
+[x] setup tenant
+[x] setup a few mailboxes with real test users (irl friends)\
+[x] configure spf dkim dmarc 
+[x] configure sublime email security
+[x] configure a saml app to play around with
