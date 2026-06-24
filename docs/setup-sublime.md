@@ -83,6 +83,8 @@ Click **Accept** to approve the requested permissions.
 
 ## 3. Activate Mailboxes
 
+<img width="1173" height="743" alt="enable-mailboxe" src="https://github.com/user-attachments/assets/155735e1-6fa5-4ab1-9d3d-65dae9ecda95" />
+
 After Microsoft 365 is connected, Sublime prompts you to activate mailboxes.
 
 1. Select the mailboxes to protect.
@@ -96,6 +98,8 @@ Notes:
 - The free/lab tier may limit how many mailboxes can be activated. In this lab, the limit was not an issue because there were only a few test users.
 
 ### Activation Delay Issue
+
+<img width="1125" height="765" alt="load" src="https://github.com/user-attachments/assets/931ae848-1262-4044-a5bd-314fe27b197e" />
 
 I hit a glitch where mailbox activation stayed on the loading screen for over 30 minutes.
 
@@ -128,6 +132,8 @@ This confirms Sublime is ingesting and analyzing messages from Microsoft 365.
 
 ## 5. Configure VIP Protection
 
+<img width="999" height="593" alt="vip-setup" src="https://github.com/user-attachments/assets/067813f8-b928-4679-8b2d-b4050c7f2868" />
+
 Sublime can identify high-value users or groups for VIP impersonation detection.
 
 In this lab:
@@ -140,6 +146,10 @@ In this lab:
 This helps Sublime build context for impersonation attempts against important users.
 
 ## 6. Start Historical Ingestion
+
+<img width="949" height="764" alt="historical-ingestion" src="https://github.com/user-attachments/assets/b97064fe-8756-4da8-920e-407f59abfd31" />
+
+<img width="1849" height="948" alt="historical-ingestion2" src="https://github.com/user-attachments/assets/f85a1f42-d379-474d-886c-26777ef68d2c" />
 
 Historical ingestion lets Sublime analyze existing mailbox content and build context.
 
@@ -159,6 +169,8 @@ https://github.com/sublime-security/sublime-rules
 ```
 
 ## 7. Activate Detection Rules
+
+<img width="1828" height="938" alt="enable-rules" src="https://github.com/user-attachments/assets/5273767d-acc1-45be-973c-d8ca4f098b68" />
 
 After onboarding, Sublime may prompt you to activate inactive detection rules.
 
@@ -193,6 +205,8 @@ In this lab, the test message appeared under flagged messages with the `Test rul
 
 ## 9. Test What Gets Flagged
 
+<img width="1876" height="647" alt="flagged-messages" src="https://github.com/user-attachments/assets/1d666184-1292-49a6-84d7-0b2a75bdcf40" />
+
 After setup, send controlled test messages to see what Sublime flags.
 
 This is useful for both defensive and offensive learning:
@@ -204,6 +218,8 @@ This is useful for both defensive and offensive learning:
 Keep testing controlled and contained to the lab tenant.
 
 ## 10. Optional Account Setup Items
+
+<img width="730" height="548" alt="image" src="https://github.com/user-attachments/assets/c2e776e9-356d-4ba0-9470-f505bbfd3263" />
 
 Some useful follow-up items are available in the Sublime setup checklist or Admin area.
 
@@ -368,6 +384,8 @@ You can test either by:
 
 
 ## 12. Validation Checklist
+
+<img width="1846" height="930" alt="image" src="https://github.com/user-attachments/assets/ed9859a4-c2d6-4104-b1d0-f161e44ed09b" />
 
 Use this checklist to confirm the lab setup is working.
 
