@@ -190,6 +190,28 @@ This helped clean up the graph view by resolving Azure base objects back to user
 - Only run AzureHound against tenants you own or have permission to assess.
 - If a refresh token is exposed, revoke user sessions or reset the lab account password.
 
+### Real-World Context
+
+The lab uses the device code flow against my own tenant, but the same flow is
+actively abused in the wild. The attacker plays the role AzureHound plays here:
+they start the device code request on their own infrastructure, then trick a
+victim into entering the generated code at microsoft.com/devicelogin and
+completing MFA. The victim's browser only sees a confirmation page. The
+access and refresh tokens are delivered to the attacker's polling session,
+because that is the session that started the flow.
+
+That is why blocking device code flow with Conditional Access (the hardening
+note above) matters outside of a lab. It removes an MFA-bypass-by-design entry
+point that does not require stealing a password.
+
+References:
+- Microsoft Defender Security Research, "Inside an AI-enabled device code
+  phishing campaign" (April 2026): 
+  https://www.microsoft.com/en-us/security/blog/2026/04/06/ai-enabled-device-code-phishing-campaign-april-2026/
+- FBI IC3 PSA, "Kali365 Phishing-as-a-Service Kit Hijacks Microsoft 365
+  Access Tokens":
+  https://www.ic3.gov/PSA/2026/PSA260521
+
 
 ### Hardening Note: Block Device Code Flow
 
