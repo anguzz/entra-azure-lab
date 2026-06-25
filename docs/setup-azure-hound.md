@@ -201,7 +201,7 @@ access and refresh tokens are delivered to the attacker's polling session,
 because that is the session that started the flow.
 
 That is why blocking device code flow with Conditional Access (the hardening
-note above) matters outside of a lab. It removes an MFA-bypass-by-design entry
+note in this doc) matters outside of a lab. It removes an MFA bypass by design entry
 point that does not require stealing a password.
 
 References:
@@ -217,7 +217,7 @@ References:
 
 Device code flow is useful for tools like AzureHound, Azure PowerShell, Azure CLI, TVs, printers, and other devices that cannot easily open a browser locally.
 
-However, it is also abused in phishing because the victim can be tricked into entering a real Microsoft device code, completing MFA, and granting tokens to the attacker-controlled session.
+However, it is also abused in phishing because the victim can be tricked into entering a real Microsoft device code, completing MFA, and granting tokens to the attacker controlled session.
 
 A stronger tenant can reduce this risk by using Conditional Access to block device code flow:
 
