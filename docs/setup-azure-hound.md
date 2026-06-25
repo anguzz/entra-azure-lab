@@ -67,12 +67,16 @@ cd .\scripts\azure-hound
 
 Expected flow:
 
-```text
+```shell
 Go to: https://login.microsoft.com/device
 Enter code: <device-code>
 Device code copied to clipboard.
 Waiting for browser login...
+```
+<img width="959" height="862" alt="codeflow2" src="https://github.com/user-attachments/assets/157e8205-35a1-4fd6-9aed-9064b729d740" />
+<img width="547" height="500" alt="codeflow3" src="https://github.com/user-attachments/assets/9c348950-0c6f-4f87-997e-4a7ee1c7368d" />
 
+```shell
 Got refresh token. Running AzureHound...
 AzureHound v2.12.2
 ...
@@ -81,6 +85,7 @@ collection completed
 AzureHound output saved to:
 ...\monkey-place-azurehound.json
 ```
+
 
 Some warnings during collection can be normal in a lab tenant:
 
@@ -154,6 +159,7 @@ After BloodHound CE is running:
 3. Upload `monkey-place-azurehound.json`.
 4. Wait for ingestion to finish.
 5. Use Search, Pathfinding, or Cypher to explore the tenant graph.
+<img width="605" height="776" alt="upload3" src="https://github.com/user-attachments/assets/63aa5991-c915-4bdb-a3d2-6bfe19db60c1" />
 
 Useful starter Cypher query for Azure / Entra role assignments:
 
@@ -169,6 +175,12 @@ LIMIT 100
 ```
 
 This helped clean up the graph view by resolving Azure base objects back to users, groups, or service principals when BloodHound had the richer object available. It made role assignments easier to read than the default object-ID-heavy view.
+
+
+<img width="1528" height="939" alt="az-hound" src="https://github.com/user-attachments/assets/3c047d8e-32a4-4598-9a14-9a41348fdd61" />
+
+<img width="579" height="729" alt="az-hound2" src="https://github.com/user-attachments/assets/25ed7acf-0b19-42e2-9a25-6edad8bb04ee" />
+
 
 ### Notes
 
