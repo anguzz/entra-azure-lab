@@ -67,12 +67,16 @@ cd .\scripts\azure-hound
 
 Expected flow:
 
-```text
+```shell
 Go to: https://login.microsoft.com/device
 Enter code: <device-code>
 Device code copied to clipboard.
 Waiting for browser login...
+```
+<img width="959" height="862" alt="codeflow2" src="https://github.com/user-attachments/assets/157e8205-35a1-4fd6-9aed-9064b729d740" />
+<img width="547" height="500" alt="codeflow3" src="https://github.com/user-attachments/assets/9c348950-0c6f-4f87-997e-4a7ee1c7368d" />
 
+```shell
 Got refresh token. Running AzureHound...
 AzureHound v2.12.2
 ...
@@ -81,6 +85,7 @@ collection completed
 AzureHound output saved to:
 ...\monkey-place-azurehound.json
 ```
+
 
 Some warnings during collection can be normal in a lab tenant:
 
@@ -154,6 +159,7 @@ After BloodHound CE is running:
 3. Upload `monkey-place-azurehound.json`.
 4. Wait for ingestion to finish.
 5. Use Search, Pathfinding, or Cypher to explore the tenant graph.
+<img width="605" height="776" alt="upload3" src="https://github.com/user-attachments/assets/63aa5991-c915-4bdb-a3d2-6bfe19db60c1" />
 
 Useful starter Cypher query for Azure / Entra role assignments:
 
@@ -170,6 +176,12 @@ LIMIT 100
 
 This helped clean up the graph view by resolving Azure base objects back to users, groups, or service principals when BloodHound had the richer object available. It made role assignments easier to read than the default object-ID-heavy view.
 
+
+<img width="1528" height="939" alt="az-hound" src="https://github.com/user-attachments/assets/3c047d8e-32a4-4598-9a14-9a41348fdd61" />
+
+<img width="579" height="729" alt="az-hound2" src="https://github.com/user-attachments/assets/25ed7acf-0b19-42e2-9a25-6edad8bb04ee" />
+
+
 ### Notes
 
 - Keep BloodHound CE local unless there is a reason to expose it.
@@ -178,12 +190,34 @@ This helped clean up the graph view by resolving Azure base objects back to user
 - Only run AzureHound against tenants you own or have permission to assess.
 - If a refresh token is exposed, revoke user sessions or reset the lab account password.
 
+### Real-World Context
+
+The lab uses the device code flow against my own tenant, but the same flow is
+actively abused in the wild. The attacker plays the role AzureHound plays here:
+they start the device code request on their own infrastructure, then trick a
+victim into entering the generated code at microsoft.com/devicelogin and
+completing MFA. The victim's browser only sees a confirmation page. The
+access and refresh tokens are delivered to the attacker's polling session,
+because that is the session that started the flow.
+
+That is why blocking device code flow with Conditional Access (the hardening
+note in this doc) matters outside of a lab. It removes an MFA bypass by design entry
+point that does not require stealing a password.
+
+References:
+- Microsoft Defender Security Research, "Inside an AI-enabled device code
+  phishing campaign" (April 2026): 
+  https://www.microsoft.com/en-us/security/blog/2026/04/06/ai-enabled-device-code-phishing-campaign-april-2026/
+- FBI IC3 PSA, "Kali365 Phishing-as-a-Service Kit Hijacks Microsoft 365
+  Access Tokens":
+  https://www.ic3.gov/PSA/2026/PSA260521
+
 
 ### Hardening Note: Block Device Code Flow
 
 Device code flow is useful for tools like AzureHound, Azure PowerShell, Azure CLI, TVs, printers, and other devices that cannot easily open a browser locally.
 
-However, it is also abused in phishing because the victim can be tricked into entering a real Microsoft device code, completing MFA, and granting tokens to the attacker-controlled session.
+However, it is also abused in phishing because the victim can be tricked into entering a real Microsoft device code, completing MFA, and granting tokens to the attacker controlled session.
 
 A stronger tenant can reduce this risk by using Conditional Access to block device code flow:
 
