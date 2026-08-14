@@ -115,3 +115,10 @@ p="/tmp" && curl -o "${p}/action1_agent(Monkey_Place).rpm" "https://app.na-2.act
 - [Action1 Users and Roles](https://www.action1.com/documentation/users-and-roles/)
  
 
+## Screenshots.
+I installed it on two of my virtual machines, one that desperately needs patches deployed against it through action1.
+(windows 10 LTSC don't hate)
+
+
+<img width="1823" height="922" alt="image" src="https://github.com/user-attachments/assets/b5021223-dbf0-4468-b2e4-1babf6e0aaf2" />
+
