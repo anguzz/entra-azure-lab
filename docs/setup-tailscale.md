@@ -8,7 +8,7 @@ Tailscale creates an encrypted overlay network (tailnet) that connects your devi
 
 ---
 
-## Step 1: Create a Tailscale Account with Entra ID Integration
+## Step 1: Entra Global/Cloud admin creates a Tailscale Account with Entra ID Integration
 
 1. Go to [tailscale.com](https://tailscale.com) and sign up for a new account
 2. During signup, select **Microsoft Entra ID** as your identity provider
@@ -19,9 +19,14 @@ Tailscale creates an encrypted overlay network (tailnet) that connects your devi
 
 **Result:** You now have a tailnet (your personal Tailscale network) connected to your Entra ID tenant.
 
+<img width="1829" height="922" alt="image" src="https://github.com/user-attachments/assets/f2fbafa3-32c6-48d5-93c7-34b1075c0dcc" />
+
+
+<img width="1583" height="701" alt="image" src="https://github.com/user-attachments/assets/c03d6874-b867-49e9-b611-4e79e89bb062" />
+
 ---
 
-## Step 2: Invite Users to the Tailnet
+## Step 2: Tailscale admin Invite Users to the Tailnet
 
 1. In the Tailscale admin console, navigate to **Users**
 2. Click **Invite users** → **Send invites**
@@ -31,9 +36,13 @@ Tailscale creates an encrypted overlay network (tailnet) that connects your devi
 
 The user receives an email invitation with a link. When they click it and authenticate with their Entra ID credentials, they're added to your tailnet.
 
+<img width="521" height="446" alt="image" src="https://github.com/user-attachments/assets/e39db222-1a30-40f9-a96b-c5910a38551c" />
+
+<img width="1547" height="742" alt="image" src="https://github.com/user-attachments/assets/1316f453-66fe-4382-b531-fd8724ac8021" />
+
 ---
 
-## Step 3: Install Tailscale on Proxmox Host
+## Step 3: Proxmox admin installs Tailscale on Proxmox Host
 
 ### On your target Proxmox node:
 
@@ -46,39 +55,55 @@ Then start the Tailscale agent:
 ```bash
 sudo tailscale up
 ```
-
 This opens a login URL. Visit it and authenticate with your Entra ID credentials. Once authenticated, the host joins your tailnet and is assigned a Tailscale IP and DNS name.
 
-**Note:** Tailscale auto-exposes services running on the host via its DNS name. The Proxmox Web UI on port 8006 is immediately accessible through the Tailscale tunnel.
+<img width="1295" height="636" alt="image" src="https://github.com/user-attachments/assets/332c3d2c-0df1-4fd7-80a8-736d988a0cbc" />
+
+<img width="1012" height="647" alt="image" src="https://github.com/user-attachments/assets/14e6cd14-70cf-4a9d-aa51-884f4a2372e4" />
+
+<img width="705" height="587" alt="image" src="https://github.com/user-attachments/assets/135ef2a9-4cc5-4371-befe-00f73e8b1aab" />
+
+<img width="692" height="577" alt="image" src="https://github.com/user-attachments/assets/2cae3527-4e2f-4dea-84e4-f30b2bfa8f03" />
+
+<img width="816" height="259" alt="image" src="https://github.com/user-attachments/assets/47ab356e-3ac3-4107-a74c-1b66a6be66fd" />
+
+
+**Note:** Tailscale auto exposes services running on the host via its DNS name. The Proxmox Web UI on port 8006 is immediately accessible through the Tailscale tunnel.
 
 ---
 
-## Step 4: Access Proxmox Over Tailscale
+## Step 4: User can now access Proxmox Over Tailscale
 
 ### From any machine with Tailscale installed:
 
-1. Install Tailscale on your local machine (desktop, laptop, phone)
-   ```bash
-   # Linux
-   curl -fsSL https://tailscale.com/install.sh | sh
-   sudo tailscale up
 
-   # macOS / Windows: Download from tailscale.com/download
-   ```
+1. User/2nd admin installs Tailscale on your local machine for windows, linux, etc (desktop, laptop, phone)
 
-2. Authenticate with your Entra ID credentials
+   `tailscale.com/download`
+ 
+   <img width="1544" height="795" alt="image" src="https://github.com/user-attachments/assets/b92c39d6-3fb3-4409-a18b-e02c23759107" />
 
-3. In your browser, navigate to the Proxmox Web UI using the Tailscale DNS name:
+
+2.  User/2nd admin authenticates with your Entra ID credentials, connects their machine.
+
+<img width="655" height="507" alt="image" src="https://github.com/user-attachments/assets/c1e5acde-e0db-4fb0-9316-8bff983b5746" />
+
+3. In the browser, navigate to the Proxmox Web UI using the Tailscale DNS name:
+
+You could copy it from the portal directly 
+<img width="1818" height="902" alt="image" src="https://github.com/user-attachments/assets/265b3b3d-1dbe-4dc9-9c78-97e12dbf9f2c" />
+
    ```
    https://<proxmox-hostname>.ts.net:8006
    ```
    (Find your Tailscale DNS name in the admin console → Machines → look for the hostname assigned to your Proxmox node)
 
-4. You'll see the Proxmox login page. Log in with Proxmox credentials (see Step 5).
+5. You'll see the Proxmox login page. Log in with Proxmox credentials (see Step 5).
+<img width="1864" height="742" alt="image" src="https://github.com/user-attachments/assets/5da7697a-1c7a-42c6-8113-5562cad67869" />
 
 ---
 
-## Step 5: Create Proxmox Users with Scoped Access
+## Step 5: Proxmix admin creates Proxmox Users for 2nd admin with Scoped Access
 
 To grant your co-admin access to Proxmox with limited permissions:
 
