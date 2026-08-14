@@ -47,6 +47,11 @@ Just some stuff I want to do or build out for my Entra, Azure, and M365 lab.
 
 ### SaaS apps
 [x] Sublime inital setup
+[x] Action1
+[ ] Some sort of SecretServer/ Password Manager
+[ ] internal central docs, for things like setup on admin users for platforms, platform tenant urls, etc.
+
+
 
 
 # Done
