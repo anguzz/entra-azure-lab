@@ -20,16 +20,18 @@ Instead, we create a tag for our Proxmox hosts, and allow a specific group of me
  
 Tailscale's grants are deny by default, and they're deny by default *per source*. Once you write even one grant with a group as the `src`, that group loses access to everything except what's listed as `dst` in grants that include them your personal laptop, NAS, whatever else, all become unreachable to them automatically, with zero tags or config changes needed on those devices.
  
-The one thing you still need is a separate grant (or the leftover default "allow all" rule) covering your own admin account, so you don't accidentally lock yourself out of your own machines something like:
+The one thing you still need is a separate grant (or the leftover default "allow all" rule) covering your own owner account, so you don't accidentally lock yourself out of your own machines something like:
  
 ```json
 {
-	"src": ["autogroup:admin"],
+	"src": ["autogroup:owner"],
 	"dst": ["*"],
 	"ip":  ["*"]
 }
 ```
- 
+
+By default tailscale already has an allow all rule, so that needs editing after this first ACL is enabled.
+
 ## Creating the policy
  
 ### 1. Create tag
