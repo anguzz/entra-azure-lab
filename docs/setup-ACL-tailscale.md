@@ -1,4 +1,3 @@
-Setup acl tailscale · MD
 # Setting up an ACL in Tailscale
  
 After setting up Tailscale in `setup-tailscale.md`, I realized that anyone in my tailnet with a member role (or similar) could connect to any machine in my tailnet. Since the users in my tailnet are currently trusted, it's mostly fine, but I realized what if I had a machine on my tailnet that I only wanted myself or privileged users to be able to connect to?
