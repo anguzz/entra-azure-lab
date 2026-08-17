@@ -6,10 +6,12 @@ After setting up Tailscale in `setup-tailscale.md`, I realized that anyone in my
 After messing around in the settings I saw ACLs, but was unsure how to set these up. This guide goes over how to set up an ACL in Tailscale, and testing it with my test user.
  
 By default, Tailscale does not expose the admin console to users with the member role. So there is less risk of a user who gets invited accessing unintended machines, but it's not impossible.
- 
+
+ <img width="1638" height="754" alt="forbidden" src="https://github.com/user-attachments/assets/b832aaed-8982-4c46-ab04-c79083393e95" />
+
 Without an ACL, if a user is part of the tailnet, they can in theory access any other device on it. For example, the Proxmox virtual environment, or other machines on the tailnet leaving you with only security by obscurity, plus whatever secondary platform controls exist (like passwords, for my Proxmox environment).
  
-You can assume that in a worst-case scenario a user on your tailnet is compromised, and now an attacker would have access to your remote machines.
+You can assume that in a worst case scenario a user on your tailnet is compromised, and now an attacker would have access to your remote machines.
  
 ## Policy design
  
@@ -32,25 +34,34 @@ The one thing you still need is a separate grant (or the leftover default "allow
 ## Creating the policy
  
 ### 1. Create tag
+
  
 Under `Access controls > Tags > Create tag`.
  
 I created a tag called `pve-cluster` for my Proxmox cluster environment.
  
-The tag owner for this tag was set to `autogroup:admin`.
+The tag owner for this tag was set to `autogroup:admin` but I changed it to `autogroup:owner`.
+<img width="909" height="599" alt="image" src="https://github.com/user-attachments/assets/9e4e87b3-85f7-4541-9820-19f5343a9469" />
+
  
 ### 2. Tag machines
  
 Under the machine, I tagged it by clicking the three dots, then "Edit ACL tags."
  
 I applied my tag.
- 
+
+ <img width="513" height="381" alt="tag-machines" src="https://github.com/user-attachments/assets/9d161ee4-9053-40e8-a332-3c11e2d823dc" />
+
 ### 3. Create group
  
 `Access controls > Definitions > Groups > Create group`
  
 Named it `pve-members`, then added members.
- 
+
+<img width="702" height="597" alt="pve-members" src="https://github.com/user-attachments/assets/fcd8d793-47f4-4b07-a5b6-9fa350562d0a" />
+
+ <img width="1111" height="431" alt="image" src="https://github.com/user-attachments/assets/e55b572b-79fa-48ef-9501-6439a9923c38" />
+
 ### 4. Add policy
  
 `Access controls > Policy > General access rules > Add rule`
@@ -59,15 +70,20 @@ Named it `pve-members`, then added members.
 - destination: `tag:pve-cluster`
 - port and protocol: all ports and protocols
 For now I allowed all traffic, but I'm thinking it would be best to somehow limit this to just the web UI / HTTPS port. Come back to this later.
- 
+ <img width="1586" height="577" alt="add-rule" src="https://github.com/user-attachments/assets/e5c70ee1-1e4a-4634-bf17-8ee65d84ea69" />
+
 I also noticed there are a few other options you can add, like device posture, and app level options like domains and capabilities, allowing finer grained control.
- 
+
 ### 5. Remove default rules
  
 I noticed that by default there's a rule that allows all users and devices to connect to all users and devices.
- 
+  <img width="1838" height="643" alt="all-to-all" src="https://github.com/user-attachments/assets/398a9bb5-09ae-426a-a436-e8e7957a8bb4" />
+
 I went ahead and edited/removed that rule so only my account could reach all users and devices for now, and members or other roles would need their own ACL rules set up in the meantime.
+
+<img width="1820" height="573" alt="image" src="https://github.com/user-attachments/assets/3bc40c06-e4e8-45bc-89df-13a8837336cf" />
  
+
 ### 6. Testing
  
 Before the ACL:
